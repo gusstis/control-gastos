@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import Header from './components/Header';
+import Modal from './components/Modal'
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
 
 function App() {
@@ -31,7 +32,9 @@ function App() {
         </div>
         )}
 
-          {modal && <p>Se viene el modal</p> }
+          {modal && <Modal
+                      setModal={setModal}
+                    /> }
 
       </div>
     
