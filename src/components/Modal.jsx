@@ -1,7 +1,9 @@
 import {useState} from 'react'
+import Mensaje from './Mensaje'
 import CerrarBtn from '../img/cerrar.svg'
 
-const Modal = ({setModal, animarModal, setAnimarModal}) => {
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
+    const [mensaje, setMensaje] = useState('')
     const [nombre, setNombre] = useState('')
     const [cantidad, setCantidad] = useState('')
     const [categoria, setCategoria] = useState('')
@@ -9,12 +11,25 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
 
     const ocultarModal = () => {
         setAnimarModal(false)
-
         setTimeout(() => {
             setModal(false)
         },500)
     }
-  return (
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if ([ nombre, cantidad, categoria ].includes('')) {
+            setMensaje('Todos los campos son necesarios')
+            setTimeout(() => {
+                setMensaje('')  
+            }, 2000);
+            return
+        }
+        guardarGasto({ nombre, cantidad, categoria })
+
+    }
+
+    return (
     <div className="modal" >
         <div className="cerrar-modal" >
             <img
@@ -23,8 +38,12 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
                 onClick={ocultarModal}
             />
         </div>
-        <form className={` formulario ${ animarModal ? "animar" : "cerrar" } `} >
+        <form
+            className={` formulario ${ animarModal ? "animar" : "cerrar" } `}
+            onSubmit={handleSubmit}
+        >
             <legend>Nuevo Gasto</legend>
+            {mensaje && <Mensaje tipo='error' >{mensaje}</Mensaje>}
             <div className='campo' >
                 <label htmlFor="nombre">Nombre Gasto</label>
                 <input
@@ -63,7 +82,10 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
                     <option value="suscripciones">Suscripciones</option>
                 </select>
             </div>
-            <input type="submit" value="Añadir Gasto" />
+            <input
+                type="submit"
+                value="Añadir Gasto"
+            />
         </form>
     </div>
   )

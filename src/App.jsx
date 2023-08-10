@@ -19,6 +19,10 @@ function App() {
     }, 500)
   }
 
+  const guardarGasto = gasto => {
+    console.log(gasto)
+  }
+
   return (
     
       <div>
@@ -42,6 +46,7 @@ function App() {
                       setModal={setModal}
                       animarModal={animarModal}
                       setAnimarModal={setAnimarModal}
+                      guardarGasto={guardarGasto}
                     /> }
 
       </div>
