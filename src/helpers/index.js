@@ -3,3 +3,18 @@ export const generarId = () => {
     const fecha = Date.now().toString(36)
     return random + fecha
 }
+
+
+/*
+moment.js es una lib muy pesada, además modifica los objetos originales
+date-fns: es una buena opción
+*/
+export const formatearFecha = fecha => {
+    const fechaNueva = new Date(fecha)
+    const opciones = {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit'
+    }
+    return fechaNueva.toLocaleDateString('es-AR', opciones)
+}
